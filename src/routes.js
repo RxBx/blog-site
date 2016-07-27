@@ -7,13 +7,14 @@ import PostsNew from './components/posts_new';
 
 //Routes can nest in a Route
 //IOW google.com/ ...renders: App
-//IOW google.com/greet2 ...renders: App, Greeting
-//but nec to place this.props.children in App.js!!
 //IndexRoute only displays on "/" and no other pages
+//but  google.com/greet2 ...renders: App, Greeting not IndexRoute
+//Nec to place 'this.props.children' in App.js to load child routes here!!!
+
 export default (
 	<Route path="/" component={App} >
 		<IndexRoute component={PostsIndex} />
-		<Route path="posts/new" component={ PostsNew} />
+		<Route path="posts/new" component={PostsNew} />
 	</Route>
 );
 

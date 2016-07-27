@@ -23,7 +23,7 @@ class PostsIndex extends Component {
 		);
 	}
 }
-
+// standard bindActionCreators config below gets supplanted by shortcut code
 //function mapDispatchToProps(dispatch) {
 //	return bindActionCreators({ fetchPosts }, dispatch);
 //}
