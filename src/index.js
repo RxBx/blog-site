@@ -4,11 +4,15 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { Router, browserHistory } from 'react-router';
 import routes from './routes';
+import promise from 'redux-promise';
 
 //import App from './components/app'; // not needed due to React Router
 import reducers from './reducers';
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+//this links redux-promise as 'middleware'
+const createStoreWithMiddleware = applyMiddleware(
+	promise
+)(createStore);
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>

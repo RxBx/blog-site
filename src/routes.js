@@ -3,6 +3,7 @@ import { Route, IndexRoute } from 'react-router';
 
 import App from './components/app';
 import PostsIndex from './components/posts_index';
+import PostsNew from './components/posts_new';
 
 //Routes can nest in a Route
 //IOW google.com/ ...renders: App
@@ -11,7 +12,8 @@ import PostsIndex from './components/posts_index';
 //IndexRoute only displays on "/" and no other pages
 export default (
 	<Route path="/" component={App} >
-	<IndexRoute component={PostsIndex} />
+		<IndexRoute component={PostsIndex} />
+		<Route path="posts/new" component={ PostsNew} />
 	</Route>
 );
 
