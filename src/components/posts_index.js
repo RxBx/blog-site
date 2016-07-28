@@ -10,6 +10,20 @@ class PostsIndex extends Component {
 		this.props.fetchPosts();
 	}
 
+	renderPosts() {
+		//accesses the posts delivered from Redux state using mapStateToProps at bottom
+		//and now accessible off 'props' based on API delivery object
+		//They are mapped onto each new list item by this function
+		return this.props.posts.map((post) => 
+			//ID is used to give each list item a unique ID
+			<li className="list-group-item" key={post.id}>
+				<span className="pull-xs-right">{post.categories}</span>
+				<strong>{post.title}</strong>
+			</li>
+			);
+	}
+
+
 	render() {
 		return(
 			<div>
@@ -18,10 +32,21 @@ class PostsIndex extends Component {
 						Add a Post
 					</Link>
 				</div>
-				List of blog posts
+				<h3>Posts</h3>
+				<ul className="list-group">
+					{this.renderPosts()}
+				</ul>
 			</div>
 		);
 	}
+}
+
+//
+function mapStateToProps(state) {
+	//state.posts.all is the redux state defined on reducers/index.js &
+	//updated by reducer_posts.js.
+	//and here links to this.props.post in this page's React container
+	return { posts: state.posts.all };
 }
 // standard bindActionCreators config below gets supplanted by shortcut code
 //function mapDispatchToProps(dispatch) {
@@ -30,4 +55,4 @@ class PostsIndex extends Component {
 
 //export default connect(null, {mapDispatchToProps})(PostsIndex);
 // shorthand instead of mapDispatch...bindActionCreators
-export default connect(null, { fetchPosts })(PostsIndex);
+export default connect(mapStateToProps, { fetchPosts })(PostsIndex);
