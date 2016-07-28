@@ -14,11 +14,14 @@ class PostsIndex extends Component {
 		//accesses the posts delivered from Redux state using mapStateToProps at bottom
 		//and now accessible off 'props' based on API delivery object
 		//They are mapped onto each new list item by this function
+		//The Link that wraps contains ".id" info for use in defining past to unique post
 		return this.props.posts.map((post) => 
 			//ID is used to give each list item a unique ID
 			<li className="list-group-item" key={post.id}>
-				<span className="pull-xs-right">{post.categories}</span>
-				<strong>{post.title}</strong>
+				<Link to={"posts/" + post.id}>
+					<span className="pull-xs-right">{post.categories}</span>
+					<strong>{post.title}</strong>
+				</Link>
 			</li>
 			);
 	}
