@@ -1,9 +1,26 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 import { createPost } from '../actions/index';
 import { Link } from 'react-router';
 
 class PostsNew extends Component {
+	//defining an object on the PostsNew class - to give us access 
+	//to an upstream parent context Router at index.js
+	static contextTypes = {
+		router: PropTypes.object
+	};
+	//these props are from react-router state
+	onSubmit(props) {
+		this.props.createPost(props)
+			// once createPost request / promise server post is resolved, do the following
+			.then(() => {
+				//blog post has been create, navigate user to index
+				// we navigate4 by calling this.context.router.push with the
+				//new path to navigate to.
+				this.context.router.push('/');
+			});
+	}
+
 	render() {
 		//ES6 shorthand for const handleSubmit = this.props.handleSubmit
 		const { fields: { title, categories, content}, handleSubmit } = this.props;
@@ -12,8 +29,10 @@ class PostsNew extends Component {
 		//into the input element for access to JS object props
 
 		//handleSubmit can use an actionCreator to 'finish' the form submit action
+		//then we break out 'onSubmit' to a new method to handle createPost &
+		//a 'push' page routing method
 		return (
-			<form onSubmit={handleSubmit(this.props.createPost)}>
+			<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
 				<h3>Create a New Post</h3>
 				<div className={`form-group ${title.touched && title.invalid ? 'has-danger' : ''}`}>
 					<label>Title</label>
